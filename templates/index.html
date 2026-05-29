@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <main class="app-shell">
+        <section class="workspace" aria-labelledby="page-title">
+            <div class="intro">
+                <p class="eyebrow">QR Studio</p>
+                <h1 id="page-title">Create clean QR codes in seconds.</h1>
+                <p class="lede">Paste a link, message, phone number, or Wi-Fi note and export a crisp PNG that is ready to share.</p>
+            </div>
+
+            <form class="generator" id="qr-form" action="{{ url_for('generate') }}" method="post">
+                <label for="text">Content</label>
+                <div class="input-row">
+                    <input
+                        id="text"
+                        name="text"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="https://example.com"
+                        maxlength="1200"
+                        required
+                    >
+                    <button type="submit" id="generate-button">Generate</button>
+                </div>
+                <p class="hint">The QR code is generated locally by this Flask app and returned as a PNG.</p>
+                <p class="error" id="error-message" role="alert"></p>
+            </form>
+        </section>
+
+        <aside class="preview-panel" aria-label="QR preview">
+            <div class="preview-box" id="preview-box">
+                <div class="placeholder" id="placeholder">
+                    <span class="placeholder-mark">QR</span>
+                    <p>Your QR code will appear here.</p>
+                </div>
+                <img id="qr-image" alt="Generated QR code">
+            </div>
+
+            <div class="actions">
+                <a class="download-link" id="download-link" download="qr-code.png">Download PNG</a>
+                <button class="secondary-button" type="button" id="clear-button">Clear</button>
+            </div>
+        </aside>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
